@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    ADD:
+    <form action="/submit" method="post">
+        <input type="text" name="id" required>
+        <input type="text" name="name">
+        <input type="text" name="price">
+        <button type="submit">Send</button>
+    </form>
+    <br />
+    DELETE:
+    <form action="/delete" method="post">
+        <input type="text" name="del">
+        <button type="submit">Delete</button>
+    </form>
+    <br />
+    UPDATE:
+    <form action="/update" method="post">
+        <input type="text" name="edit_id">
+        <input type="text" name="edit_name">
+        <input type="text" name="edit_price">
+        <button type="submit">Edit</button>
+    </form>
+    <br />
+    VIEW:
+    <form action="/view" method="post">
+        <input id="view" type="text" name="view">
+        <button type="submit">View</button>
+    </form>
+</body>
+</html>
