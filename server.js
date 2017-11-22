@@ -32,10 +32,11 @@ app.post('/delete', (req, res) => {
 })
 
 app.post('/update', (req, res) => {
-    let id = req.body.edit_id;
+    let old_id = req.body.old_id;
+    let new_id = req.body.new_id;
     let name = req.body.edit_name;
     let price = req.body.edit_price;
-    entries.editEntry(id, name, price);
+    entries.editEntry(old_id, new_id, name, price);
     res.redirect('/');
 })
 

@@ -17,13 +17,14 @@
     <br />
     DELETE:
     <form action="/delete" method="post">
-        <input type="text" name="del">
+        <input type="text" name="del" required>
         <button type="submit">Delete</button>
     </form>
     <br />
     UPDATE:
     <form action="/update" method="post">
-        <input type="text" name="edit_id">
+        <input type="text" name="old_id" placeholder="old id" required>
+        <input type="text" name="new_id" placeholder="new id">
         <input type="text" name="edit_name">
         <input type="text" name="edit_price">
         <button type="submit">Edit</button>

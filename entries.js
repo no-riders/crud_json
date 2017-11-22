@@ -37,15 +37,25 @@ let addEntry = (id, name, price) => {
     }
     
     //edit entry
-    let editEntry = (id, name, price) => {
-        let obj = require(`./data/${id}.json`);
-        obj.id = id || obj.id;
+    let editEntry = (old_id, new_id, name, price) => {
+        let obj = require(`./data/${old_id}.json`);
+        if(new_id) {
+            obj.id = new_id;
+        } else {
+            obj.id = old_id;
+        }
         obj.name = name || obj.name;
         obj.price = price || obj.price;
-        fs.writeFile(`./data/${id}.json`, JSON.stringify(obj), (err) => {
+        fs.writeFile(`./data/${old_id}.json`, JSON.stringify(obj), (err) => {
             if(err) throw err;
         });
-        console.log(`File id: ${id} has been updated`);
+        if(new_id) {
+            fs.rename(`./data/${old_id}.json`, `./data/${new_id}.json`, (err) => {
+                if(err) throw err;
+            })
+            console.log(`File id: ${old_id} renamed to file id: ${new_id}`)
+        }
+        console.log(`File id: ${old_id} has been updated`);
     }
     
     //view Entry
