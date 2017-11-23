@@ -40,20 +40,20 @@ let removeEntry = (id) => {
     let obj = require('./data/data.json');
     let objData = obj.data;
     let allids = objData.map(obj => obj.id);
-    // console.log(objData)
-    // console.log(allids);
-    // console.log(allids.indexOf(id));
-
-function removeValue(arr, value) {
+// console.log(allids)
+// console.log(objData)
+//get index of requested id and remove from existing object
+function removeEntry(arr, value) {
     arr.forEach((item) => {
         if(arr.indexOf(item) === value) {
             arr.splice(arr.indexOf(item), 1)
         }
     })
-    //console.log(arr)
+   // console.log(arr)
     return arr;
 }
-removeValue(objData, allids.indexOf(id))
+removeEntry(objData, allids.indexOf(id))
+//write updated object back to data file
 fs.writeFile('./data/data.json', JSON.stringify(obj, null, 2), (err) => {
     if(err) throw err;
 });
@@ -62,29 +62,27 @@ console.log(`Entry with id: ${id} has been removed`);
 
 //edit entry
 let editEntry = (old_id, new_id, name, price) => {
-    let obj = require(`./data/${old_id}.json`);
-    //wether new id has been provided or not
-    if (new_id) {
-        obj.id = new_id;
-    } else {
-        obj.id = old_id;
-    }
+    let obj = require('./data/data.json');
+    let objData = obj.data;
+    let allids = objData.map(obj => obj.id);
 
-    obj.name = name || obj.name;
-    obj.price = price || obj.price;
-
-    //update file 
-    fs.writeFile(`./data/data.json`, JSON.stringify(obj), (err) => {
-        if (err) throw err;
-    });
-    //if new id provided - rename json file
-    //     if (new_id) {
-    //         fs.rename(`./data/${old_id}.json`, `./data/${new_id}.json`, (err) => {
-    //             if (err) throw err;
-    //         })
-    //         console.log(`File id: ${old_id} renamed to file id: ${new_id}`)
-    //     }
-    //     console.log(`File id: ${old_id} has been updated`);
+//get index of requested id and update from existing object
+function updateEntry(arr, value) {
+    arr.forEach((item) => {
+        if(arr.indexOf(item) === value) {
+            let entry = arr[arr.indexOf(item)]
+            entry.name = name || entry.name;
+            entry.price = price || entry.price;
+            console.log(arr[arr.indexOf(item)])
+        }
+    })
+    return arr;
+}
+updateEntry(objData, allids.indexOf(old_id));
+//write new data
+fs.writeFile('./data/data.json', JSON.stringify(obj, null, 2), (err) => {
+    if(err) throw err;
+});
 }
 
 //view Entry
