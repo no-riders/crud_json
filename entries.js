@@ -26,7 +26,7 @@ let addEntry = (id, name, price) => {
     if (allids.indexOf(currentObj.id) > -1) {
         console.log('Error, ID is taken')
     } else {
-        obj.data.push(currentObj);
+        objData.push(currentObj);
 
         fs.writeFile(`./data/data.json`, JSON.stringify(obj, null, 2), (err) => {
             if (err) throw err;
@@ -35,20 +35,29 @@ let addEntry = (id, name, price) => {
     };
 }
 
-//let final = JSON.stringify(obj);
-//check if file with exact name exists
-// if (fs.existsSync(`./data/${id}.json`)) {
-//     return console.log(`file ${id} already exists try different name.`)
-// }
-
 //delete entry
 let removeEntry = (id) => {
-    fs.unlink(`./data/${id}.json`, (err) => {
-        if (err) {
-            throw err
+    let obj = require('./data/data.json');
+    let objData = obj.data;
+    let allids = objData.map(obj => obj.id);
+    // console.log(objData)
+    // console.log(allids);
+    // console.log(allids.indexOf(id));
+
+function removeValue(arr, value) {
+    arr.forEach((item) => {
+        if(arr.indexOf(item) === value) {
+            arr.splice(arr.indexOf(item), 1)
         }
-        console.log(`file ${id} successfully deleted`);
     })
+    //console.log(arr)
+    return arr;
+}
+removeValue(objData, allids.indexOf(id))
+fs.writeFile('./data/data.json', JSON.stringify(obj, null, 2), (err) => {
+    if(err) throw err;
+});
+console.log(`Entry with id: ${id} has been removed`);
 }
 
 //edit entry
