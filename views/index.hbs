@@ -7,6 +7,76 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    
+    <body>
+    <label for="add">Add Entry</label>
+    <form action="/submit" id="add" method="post">
+        <input type="text" name="id" required placeholder="id *required">
+        <input type="text" name="name" placeholder="item">
+        <input type="text" name="price" placeholder="price">
+        <button type="submit">Add</button>
+    </form>
+    <br /> 
+    <label for="delete">Remove:</label>
+    <form action="/delete" id="delete" method="post">
+        <input type="text" name="del" required placeholder="id">
+        <button type="submit">Delete</button>
+    </form>
+    <br />
+    <label for="update">Update:</label>
+    <form action="/update" id="update" method="post">
+        <input type="text" name="old_id" placeholder="old id *required" required>
+        <input type="text" name="new_id" placeholder="new id">
+        <input type="text" name="edit_name" placeholder="item">
+        <input type="text" name="edit_price" placeholder="price">
+        <button type="submit">Edit</button>
+    </form>
+    <br /> 
+    <label for="view">View:</label>
+    <form action="/view" id="view" method="post">
+        <input id="view" type="text" name="view" placeholder="id">
+        <button type="submit">View</button>
+    </form>
+
+    <div id="table">
+        <table>
+            <thead>
+                <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>PRICE</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>lorem</td>
+                    <td>lorem</td>
+                    <td>lorem</td>
+                </tr>
+                <tr>
+                    <td>lorem</td>
+                    <td>lorem</td>
+                    <td>lorem</td>
+                </tr>
+                <tr>
+                    <td>lorem</td>
+                    <td>lorem</td>
+                    <td>lorem</td>
+                </tr>
+                <tr>
+                    <td>lorem</td>
+                    <td>lorem</td>
+                    <td>lorem</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</body>
 </body>
 </html>
