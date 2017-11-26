@@ -7,7 +7,7 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    <body>
+
     <label for="add">Add Entry</label>
     <form action="/submit" id="add" method="post">
         <input type="text" name="id" required placeholder="id *required">
@@ -31,52 +31,68 @@
         <button type="submit">Edit</button>
     </form>
     <br /> 
-    <label for="view">View:</label>
+    {{!-- <label for="view">View:</label>
     <form action="/view" id="view" method="post">
         <input id="view" type="text" name="view" placeholder="id">
         <button type="submit">View</button>
-    </form>
+    </form> --}}
 
     <div id="table">
         <table>
             <thead>
                 <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>PRICE</th>
-            </tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>PRICE</th>
+                </tr>
             </thead>
             <tbody>
+                {{#each items}}
                 <tr>
-                    <td>lorem</td>
-                    <td>lorem</td>
-                    <td>lorem</td>
+                    <td>{{id}}</td>
+                    <td>{{name}}</td>
+                    <td>{{price}}</td>
                 </tr>
-                <tr>
-                    <td>lorem</td>
-                    <td>lorem</td>
-                    <td>lorem</td>
-                </tr>
-                <tr>
-                    <td>lorem</td>
-                    <td>lorem</td>
-                    <td>lorem</td>
-                </tr>
-                <tr>
-                    <td>lorem</td>
-                    <td>lorem</td>
-                    <td>lorem</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                {{/each}}
             </tbody>
         </table>
     </div>
+<a href="/byname">By name</a>
 
+    <button onclick="byName()">By ID</button>
+    <button>By Price</button>
 
-</body>
+    <div id="test"></div>
+
+<script>
+    function byName() {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("table");
+            switching = true;
+
+            while (switching) {
+
+                switching = false;
+                rows = table.getElementsByTagName("TR");
+
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[0];
+                    y = rows[i + 1].getElementsByTagName("TD")[0];
+
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+</script>
 </body>
 </html>

@@ -1,7 +1,16 @@
 const express = require('express');
 const app = express();
 const entries = require('../entries');
+//const getJSON = require('../public/getJSON');
 const bodyParser = require('body-parser');
+const display = require('../data/data.json');
+const fs = require('fs')
+
+let dataFromJSON = display.data;
+let sortedData = dataFromJSON.sort((a,b) => {
+    return parseInt(a.id) - parseInt(b.id);
+})
+
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -9,7 +18,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    res.render('index', {title: 'CRUD JSON'});
+    res.render('index', {title: 'CRUD JSON', items: sortedData});
 })
 
 app.post('/submit', (req, res) => {
@@ -35,10 +44,11 @@ app.post('/update', (req, res) => {
     res.redirect('/');
 })
 
-app.post('/view', (req, res) => {
-    let id = req.body.view;
-    entries.viewEntry(id);
-    res.redirect('/');
-})
+// app.post('/view', (req, res) => {
+//     let id = req.body.view;
+//     entries.viewEntry(id);
+//     res.redirect('/');
+// })
+
 
 module.exports = app;

@@ -2,18 +2,23 @@
   "data": [
     {
       "id": "1",
-      "name": "iphone",
+      "name": "iPhone",
       "price": "1000"
     },
     {
-      "id": "3",
-      "name": "Nokia",
-      "price": "111"
+      "id": "2",
+      "name": "Huaweii",
+      "price": "90"
     },
     {
-      "id": "2",
-      "name": "Lenovo",
-      "price": "0"
+      "id": "3",
+      "name": "Alcatel",
+      "price": "12"
+    },
+    {
+      "id": "4",
+      "name": "Sony",
+      "price": "455"
     }
   ]
 }

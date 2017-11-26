@@ -8,7 +8,8 @@ const hbs = require('express-handlebars');
 
 const routes = require('./routes/index');
 
-//app.use(express.static(__dirname + '/public'));
+app.use('/data', express.static(__dirname + '/data'));
+app.use('/', express.static(__dirname + '/public'));
 app.use('/', routes);
 
 app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts'}));
