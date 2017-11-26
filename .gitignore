@@ -1,5 +1,4 @@
 node_modules/
-public/
 views/loop.hbs
 qqqapp.js
 notes.js

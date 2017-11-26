@@ -24,56 +24,56 @@
         </div>
 
 
-    <div class="sidebar1">
-        <label for="delete">Remove:</label>
-        <form action="/delete" id="delete" method="post">
-            <input type="text" name="del" required placeholder="id">
-            <button type="submit">Delete</button>
-        </form>
-    </div>
-
-    <div class="sidebar2">
-        <label for="update">Update:</label>
-        <form action="/update" id="update" method="post">
-            <input type="text" name="old_id" placeholder="old id *required" required>
-            <input type="text" name="new_id" placeholder="new id">
-            <input type="text" name="edit_name" placeholder="item">
-            <input type="text" name="edit_price" placeholder="price">
-            <button type="submit">Edit</button>
-        </form>
-    </div>
+        <div class="sidebar1">
+            <label for="delete">Remove:</label>
+            <form action="/delete" id="delete" method="post">
+                <input type="text" name="del" required placeholder="id">
+                <button type="submit">Delete</button>
+            </form>
         </div>
-{{!--
+
+        <div class="sidebar2">
+            <label for="update">Update:</label>
+            <form action="/update" id="update" method="post">
+                <input type="text" name="old_id" placeholder="old id *required" required>
+                <input type="text" name="new_id" placeholder="new id">
+                <input type="text" name="edit_name" placeholder="item">
+                <input type="text" name="edit_price" placeholder="price">
+                <button type="submit">Edit</button>
+            </form>
+        </div>
+    </div>
+    {{!--
     <label for="view">View:</label>
     <form action="/view" id="view" method="post">
         <input id="view" type="text" name="view" placeholder="id">
         <button type="submit">View</button>
     </form> --}}
 
-        <table id="indextable">
-            <thead>
-                <tr>
-                    <th>
-                        <a href="javascript:sortTable(0,'N');"title="Sort By ID">ID</a>
-                    </th>
-                    <th>
-                        <a href="javascript:sortTable(1,'T');" title="Sort By Name">NAME</a>
-                    </th>
-                    <th>
-                        <a href="javascript:sortTable(2,'N');"title="Sort By Price">PRICE</a>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each items}}
-                <tr>
-                    <td>{{id}}</td>
-                    <td>{{name}}</td>
-                    <td>{{price}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
+    <table id="indextable">
+        <thead>
+            <tr>
+                <th>
+                    <a href="javascript:sortTable(0,'N');" title="Sort By ID">ID</a>
+                </th>
+                <th>
+                    <a href="javascript:sortTable(1,'T');" title="Sort By Name">NAME</a>
+                </th>
+                <th>
+                    <a href="javascript:sortTable(2,'N');" title="Sort By Price">PRICE</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each items}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{name}}</td>
+                <td>{{price}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
 
     <script type="text/javascript">
 

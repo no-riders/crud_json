@@ -1,0 +1,71 @@
+input[type=text] {
+    display: block;
+    width: 50%;
+    margin: auto;
+    margin-top: 5px;
+    padding: 5px;
+    border-width: 1px;
+    border-radius: 5px;
+}
+
+button {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    width: 50%;
+}
+
+.column-layout {
+    margin: 40px;
+    display: flex;
+}
+
+.sidebar1 {
+    margin: auto;
+    flex: 1;
+    order: 3;
+}
+
+.sidebar2 {
+    margin: auto;
+    flex: 1;
+    order: 2;
+}
+
+.main-column {
+    margin: auto;
+    flex: 1;
+    order: 1;
+}
+
+#indextable {
+    margin: auto;
+    margin-top: 35px;
+    border-collapse: collapse;
+    width: 50%;
+}
+
+#indextable td,
+#indextable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#indextable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#indextable tr:hover {
+    background-color: #ddd;
+}
+
+#indextable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #f5f3ff;
+    color: white;
+}
