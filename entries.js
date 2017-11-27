@@ -1,119 +1,79 @@
 const fs = require("fs");
+const path = require('path');
 
-//add entry
-let addEntry = (id, name, price) => {
-  let entryTemplate = {
-    id,
-    name,
-    price
-  };
+const DATA_FILEPATH = './data/data.json';
 
-  let newEntry = Object.create(entryTemplate);
-  newEntry.id = id;
-  newEntry.name = name;
-  newEntry.price = price;
+function getData() {
+  return JSON.parse(fs.readFileSync(DATA_FILEPATH, "utf-8"));
+}
 
-  let newEntryString = JSON.stringify(newEntry);
+function saveData(data) {
+  fs.writeFileSync(DATA_FILEPATH, JSON.stringify(data, null, 2));
+}
 
-  //get data file
-  let obj = require("./data/data.json");
-  //grab array of objects
-  let objData = obj.data;
-  //grab id's from objects, check if id from newly added obj is already inside data file
-  let allids = objData.map(obj => obj.id);
-  let currentObj = JSON.parse(newEntryString);
+function findItemById(collection, id) {
+  return collection.find((item) => item.id === id);
+}
 
-  if (allids.indexOf(currentObj.id) > -1) {
-    console.log("Error, ID is taken");
-  } else {
-    objData.push(currentObj);
-    //sort new arr of objs by id
-    let objDataSorted = objData.sort((a, b) => {
-      return parseInt(a.id) - parseInt(b.id);
-    });
-    fs.writeFile(`./data/data.json`, JSON.stringify(obj, null, 2), err => {
-      if (err) throw err;
-    });
-    console.log(`Entry id: ${id} and name: ${name} successfully created`);
+function addEntry(data, cb) {
+  if (!data) {
+    return null;
   }
-};
+
+  const collection = [...getData()];
+  const existingItem = findItemById(collection, data.id);
+
+  if (existingItem) {
+    return cb("Error, ID is taken");
+  }
+
+  collection.push(data);
+
+  saveData(collection);
+
+  cb();
+}
 
 //delete entry
-let removeEntry = id => {
-  let obj = require("./data/data.json");
-  let objData = obj.data;
-  let allids = objData.map(obj => obj.id);
-  //get index of requested id and remove from existing object
-  function removeEntry(arr, value) {
-    arr.forEach(item => {
-      if (arr.indexOf(item) === value) {
-        arr.splice(arr.indexOf(item), 1);
-      }
-    });
-    return arr;
+function removeEntry(id) {
+  const collection = [...getData()];
+  const filteredCollection = collection.filter(item => item.id !== id);
+  
+  saveData(filteredCollection);
+}
+
+function editEntry (entryId, newData, cb) {
+  if (entryId === newData.id) {
+    return cb('existing id');
   }
-  removeEntry(objData, allids.indexOf(id));
-  //write updated object back to data file
-  fs.writeFile("./data/data.json", JSON.stringify(obj, null, 2), err => {
-    if (err) throw err;
-  });
-  console.log(`Entry with id: ${id} has been removed`);
-};
 
-//edit entry
-let editEntry = (old_id, new_id, name, price) => {
-  let obj = require("./data/data.json");
-  let objData = obj.data;
-  let allids = objData.map(obj => obj.id);
-
-  //get index of requested id and update from existing object
-  function updateEntry(arr, value) {
-    arr.forEach(item => {
-      if (arr.indexOf(item) === value) {
-        let entry = arr[arr.indexOf(item)];
-        //check if new id supplied then update id
-        if (new_id) {
-          entry.id = new_id;
-        }
-        entry.name = name || entry.name;
-        entry.price = price || entry.price;
-        console.log(arr[arr.indexOf(item)]);
-      }
-    });
-    return arr;
+  const data = {
+    id: newData.id,
+  };
+  if (newData.name) {
+    data.name = newData.name;
   }
-  updateEntry(objData, allids.indexOf(old_id));
-  //sort:
-  let objDataSorted = objData.sort((a, b) => {
-    return parseInt(a.id) - parseInt(b.id);
+  if (newData.price) {
+    data.price = newData.price;
+  }
+
+  const entriesData = getData() || [];
+
+  const editedCollection = entriesData.map(item => {
+    if (item.id !== entryId) {
+      return item;
+    }
+    return Object.assign({}, item, data);
   });
-  //write new data
-  fs.writeFile("./data/data.json", JSON.stringify(obj, null, 2), err => {
-    if (err) throw err;
-  });
+
+  saveData(editedCollection);
+
+  cb();
 };
-
-// //view Entry bi id
-// let viewEntry = id => {
-//   let obj = require("./data/data.json");
-//   let objData = obj.data;
-//   let allids = objData.map(obj => obj.id);
-
-//   //get index of requested id and display from existing object
-//   function viewEntry(arr, value) {
-//     arr.forEach(item => {
-//       if (arr.indexOf(item) === value) {
-//         console.log(arr[arr.indexOf(item)]);
-//       }
-//     });
-//     return arr;
-//   }
-//   viewEntry(objData, allids.indexOf(id));
-// };
 
 module.exports = {
+  getData,
   addEntry,
   removeEntry,
-  editEntry,
-  //viewEntry
+  editEntry
 };

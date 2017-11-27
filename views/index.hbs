@@ -10,12 +10,16 @@
 </head>
 
 <body>
+    <ul class="flash-messages">
+        {{#each sessionFlash}}
+        <li class="flash-message {{ @key }}">{{ this }}</li>
+        {{/each}}
+    </ul>
 
     <div class="column-layout">
-
         <div class="main-column">
             <label for="add">Add Entry:</label>
-            <form action="/submit" id="add" method="post">
+            <form id="add" method="post">
                 <input type="text" name="id" required placeholder="id *required">
                 <input type="text" name="name" placeholder="item">
                 <input type="text" name="price" placeholder="price">
