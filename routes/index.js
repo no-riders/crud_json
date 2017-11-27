@@ -22,11 +22,14 @@ app.get('/', (req, res) => {
 })
 
 app.post('/submit', (req, res) => {
-    let id = req.body.id;
-    let name = req.body.name;
-    let price = req.body.price;
-    entries.addEntry(id, name, price);
-    res.redirect('/')
+    const { id, name, price } = req.body;
+    
+    entries.addEntry(id, name, price, (err) => {
+        if (error) {
+            throw Error(error);
+        }
+        res.redirect('/');
+    });
 })
 
 app.post('/delete', (req, res) => {

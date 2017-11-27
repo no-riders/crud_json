@@ -1,41 +1,53 @@
 const fs = require("fs");
+const obj = require("./data/data.json");
 
-//add entry
-let addEntry = (id, name, price) => {
-  let entryTemplate = {
+function saveEntryRecord (file, data) {
+  //sort new arr of objs by id
+  // let collectionSorted = collection.sort((a, b) => {
+    //   return parseInt(a.id) - parseInt(b.id);
+    // });
+    fs.writeFileSync(file, JSON.stringify(data, null, 2));
+}
+
+function addEntry (id, name, price, cb) {
+  if (!id || !name || !price) { return null; }
+  
+  const newEntry = Object.assign({}, {
     id,
     name,
-    price
-  };
-
-  let newEntry = Object.create(entryTemplate);
-  newEntry.id = id;
-  newEntry.name = name;
-  newEntry.price = price;
-
-  let newEntryString = JSON.stringify(newEntry);
-
-  //get data file
-  let obj = require("./data/data.json");
-  //grab array of objects
-  let objData = obj.data;
-  //grab id's from objects, check if id from newly added obj is already inside data file
-  let allids = objData.map(obj => obj.id);
-  let currentObj = JSON.parse(newEntryString);
-
-  if (allids.indexOf(currentObj.id) > -1) {
-    console.log("Error, ID is taken");
-  } else {
-    objData.push(currentObj);
-    //sort new arr of objs by id
-    let objDataSorted = objData.sort((a, b) => {
-      return parseInt(a.id) - parseInt(b.id);
-    });
-    fs.writeFile(`./data/data.json`, JSON.stringify(obj, null, 2), err => {
-      if (err) throw err;
-    });
-    console.log(`Entry id: ${id} and name: ${name} successfully created`);
+    price,
+  });
+  
+  //grab array of objects (collection)
+  const collection = [...obj.data];
+  const idExists = collection.find(({ id }) => id === newEntry.id)
+  
+  if (idExists) {
+    cb("Error, ID is taken");
   }
+  
+  collection.push(newEntry);
+
+  console.log(saveEntryRecord)
+  // saveEntryRecord('./data/data.json', { data: collection });
+
+  cb(null, newEntry);
+
+  // if (allIds.indexOf(newEntry.id) > -1) {
+  //   console.log("Error, ID is taken");
+  // } else {
+  //   collection.push(newEntry);
+  //   //sort new arr of objs by id
+  //   let collectionSorted = collection.sort((a, b) => {
+  //     return parseInt(a.id) - parseInt(b.id);
+  //   });
+  //   fs.writeFile(`./data/data.json`, JSON.stringify(obj, null, 2), err => {
+  //     if (err) throw err;
+  //   });
+  //   console.log(`Entry id: ${id} and name: ${name} successfully created`);
+  // }
+
+  // return collection[collection.length-1]
 };
 
 //delete entry
@@ -112,6 +124,7 @@ let editEntry = (old_id, new_id, name, price) => {
 // };
 
 module.exports = {
+  saveEntryRecord,
   addEntry,
   removeEntry,
   editEntry,
