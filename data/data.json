@@ -1,12 +1,17 @@
 [
   {
     "id": "1",
-    "name": "A",
-    "price": ""
+    "name": "Sony",
+    "price": "1000"
   },
   {
     "id": "2",
-    "name": "Bull",
+    "name": "Alcatel",
+    "price": "200"
+  },
+  {
+    "id": "3",
+    "name": "Apple",
     "price": "200"
   }
 ]

@@ -10,15 +10,10 @@
 </head>
 
 <body>
-    <ul class="flash-messages">
-        {{#each sessionFlash}}
-        <li class="flash-message {{ @key }}">{{ this }}</li>
-        {{/each}}
-    </ul>
 
     <div class="column-layout">
         <div class="main-column">
-            <label for="add">Add Entry:</label>
+            <label for="add">Create Entry:</label>
             <form id="add" method="post">
                 <input type="text" name="id" required placeholder="id *required">
                 <input type="text" name="name" placeholder="item">
@@ -47,12 +42,15 @@
             </form>
         </div>
     </div>
-    {{!--
-    <label for="view">View:</label>
-    <form action="/view" id="view" method="post">
-        <input id="view" type="text" name="view" placeholder="id">
-        <button type="submit">View</button>
-    </form> --}}
+
+    <div class="error-msg">
+        <ul class="flash-messages">
+            {{#each sessionFlash}}
+            <li class="flash-message {{ @key }}">{{ this }}</li>
+            {{/each}}
+        </ul>
+    </div>
+
 
     <table id="indextable">
         <thead>

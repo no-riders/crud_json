@@ -5,9 +5,6 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
 
-// let sortedData = dataFromJSON.sort((a,b) => {
-//     return parseInt(a.id) - parseInt(b.id);
-// })
 
 const { getData } = require('../entries')
 
@@ -31,7 +28,7 @@ app.post('/', (req, res) => {
     
     entries.addEntry(data, (err) => {
         if (err) {
-            throw Error(err);
+            req.flash('error', `Create error: Item with ID ${data.id} already exists.`)
         }
         res.redirect('/');
     });
@@ -39,7 +36,11 @@ app.post('/', (req, res) => {
 
 app.post('/delete', (req, res) => {
     let id = req.body.del;
-    entries.removeEntry(id);
+    entries.removeEntry(id, (err) => {
+        if(err) {
+            req.flash('error', `Delete error: Unable to delete item. ID ${id} does not exist.`)
+        }
+    });
     res.redirect('/');
 })
 
@@ -48,10 +49,11 @@ app.post('/update', (req, res) => {
     const id = req.body.new_id || req.body.old_id;
     const name = req.body.edit_name;
     const price = req.body.edit_price;
+    const data = { id, name, price };
 
-    entries.editEntry(oldId, { id, name, price }, (err) => {
+    entries.editEntry(oldId, data, (err) => {
         if (err) {
-            req.flash('error', 'Item exists');
+            req.flash('error', `Update error: Item ID ${data.id} already exists.`);
         }
         res.redirect('/');
     });

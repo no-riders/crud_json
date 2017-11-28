@@ -69,3 +69,13 @@ button {
     background-color: #f5f3ff;
     color: white;
 }
+
+.error-msg {
+    width: 50%;
+    margin: auto;
+}
+
+.flash-message {
+    color: red;
+    list-style: none;
+}
