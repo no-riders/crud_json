@@ -16,5 +16,4 @@
     <li>Delete entry: delete by `id`</li>
     <li>Table is sorted by `id` as a default. Can also be sorted by `name`, `price` by pressing column header</li>
     <li>Error handling: unable to created duplicate entries, update `id` to existing one, delete non existing id</li>
-    <li></li>
 </ul>
